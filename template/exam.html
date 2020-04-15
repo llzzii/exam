@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>试题</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1754034_zm5tadrfja9.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <style>
+        .v-expansion-panel:before {
+            box-shadow: none;
+        }
+
+        .theme--light.v-expansion-panels .v-expansion-panel {
+            background-color: transparent;
+        }
+
+        .padding10 {
+            padding: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <template>
+                <div>
+                    <v-app-bar color="#00ade3" dense dark>
+                        <v-app-bar-nav-icon> <i style="font-size: 20px;" class="icon iconfont iconzhihuitiku"></i>
+                        </v-app-bar-nav-icon>
+
+                        <v-toolbar-title>Exam</v-toolbar-title>
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn icon>
+                            <a href="/temp/upload" style="text-decoration: none;">
+                                <i style="color: #fff;font-size: 18px;" class=" icon iconfont iconshangchuan"></i>
+                            </a>
+
+
+                        </v-btn>
+
+                        <v-menu left bottom>
+                            <template v-slot:activator="{ on }">
+                                <v-btn icon v-on="on">
+                                    <i style="color: #fff;font-size: 18px;" class="icon iconfont iconchakan"></i>
+                                </v-btn>
+                            </template>
+
+                            <v-list>
+                                <v-list-item>
+                                    <v-list-item-title> <a href="/temp/exam" style="text-decoration: none;">
+                                            查看全部
+                                        </a></v-list-item-title>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title> <a href="/temp/examPage" style="text-decoration: none;">
+                                            分页查看
+                                        </a></v-list-item-title>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title> <a href="/temp/examAjax" style="text-decoration: none;">
+                                            Ajax查看
+                                        </a></v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                    </v-app-bar>
+                    <v-list>
+                        <v-list-item-group color="primary">
+                            {% for result in data %}
+
+                            <v-list-item three-line>
+                                <v-list-item-content>
+                                    <v-list-item three-line>
+                                        {{ forloop.counter }}. {{result.fields.title}}
+                                    </v-list-item>
+                                    <v-list-item-subtitle>
+
+                                        <v-radio-group>
+                                            <v-radio label="A. {{result.fields.a_key}}"></v-radio>
+                                            <v-radio label="B. {{result.fields.b_key}}"></v-radio>
+                                            <v-radio label="C. {{result.fields.c_key}}"></v-radio>
+                                            <v-radio label="D. {{result.fields.d_key}}"></v-radio>
+
+                                        </v-radio-group>
+
+                                    </v-list-item-subtitle>
+                                    <v-row justify="center">
+                                        <v-expansion-panels>
+                                            <v-expansion-panel>
+                                                <v-expansion-panel-header>答案及解析</v-expansion-panel-header>
+                                                <v-expansion-panel-content>
+                                                    <h5>解析</h5>
+                                                    <p class="padding10"> {{ result.fields.answer}}</p>
+                                                    <h5>答案</h5>
+                                                    <p class="padding10"> {{ result.fields.resolve}}</p>
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                        </v-expansion-panels>
+                                    </v-row>
+                                </v-list-item-content>
+
+                            </v-list-item>
+                            {% endfor %}
+
+                        </v-list-item-group>
+                    </v-list>
+                </div>
+            </template>
+        </v-app>
+    </div>
+    <!-- 引入组件库 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var list = {
+            {
+                dataJs | safe
+            }
+        }
+
+        var vs = new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data() {
+                return {
+                    result: null
+                }
+            },
+            mounted() {
+
+            }
+        })
+        console.log(list)
+    </script>
+
+</body>
+
+</html>

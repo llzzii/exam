@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>上传</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1754034_zm5tadrfja9.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900%7CRoboto+Mono:500%7CMaterial+Icons"
+        media="all">
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <template>
+                <!--vue 绑定和Django的jinja2模板系统使用的标签是一样的，为了区分我们需要用verbatim将vue的标签包围起来-->
+                {% verbatim myblock %}
+                <v-app-bar color="#00ade3" dense dark style="max-height: 48px;">
+                    <v-app-bar-nav-icon> <i style="font-size: 20px;" class="icon iconfont iconzhihuitiku"></i>
+                    </v-app-bar-nav-icon>
+
+                    <v-toolbar-title>Exam</v-toolbar-title>
+
+                    <v-spacer></v-spacer>
+
+                    <v-btn icon>
+                        <a href="/temp/upload" style="text-decoration: none;">
+                            <i style="color: #fff;font-size: 18px;" class=" icon iconfont iconshangchuan"></i>
+                        </a>
+
+
+                    </v-btn>
+
+                    <v-menu left bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn icon v-on="on">
+                                <i style="color: #fff;font-size: 18px;" class="icon iconfont iconchakan"></i>
+                            </v-btn>
+                        </template>
+
+                        <v-list>
+                            <v-list-item>
+                                <v-list-item-title> <a href="/temp/exam" style="text-decoration: none;">
+                                        查看全部
+                                    </a></v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title> <a href="/temp/examPage" style="text-decoration: none;">
+                                        分页查看
+                                    </a></v-list-item-title>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-title> <a href="/temp/examAjax" style="text-decoration: none;">
+                                        Ajax查看
+                                    </a></v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+
+                </v-app-bar>
+                {% endverbatim myblock %}
+                <form method="post" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <v-file-input show-size name="files" label="选择上传的文件"></v-file-input>
+                    <v-text-field label="请输入试题类型" name="type" prepend-icon="type"></v-text-field>
+                    <v-btn type="submit" block color="#00ade3" dark small><i style="font-size: 18px;"
+                            class=" icon iconfont iconshangchuan"></i>上传
+                    </v-btn>
+                </form>
+                <table>
+                    <thead>
+                        <tr>
+
+                            <td>标题</td>
+                            <td>答案</td>
+                            <td>类型</td>
+
+                            <td>正确答案</td>
+                            <td>解析</td>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in data %}
+                        <tr>
+
+                            <td>{{ result.title }}</td>
+                            <td>{{ result.keys }}</td>
+
+                            <td>{{ result.type }}</td>
+
+                            <td>{{ result.answer }}</td>
+                            <td>{{ result.resolve }}</td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </template>
+        </v-app>
+    </div>
+    <!-- 引入组件库 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script>
+        var vs = new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data: () => ({
+                collapseOnScroll: true,
+            }),
+        })
+    </script>
+</body>
+
+</html>

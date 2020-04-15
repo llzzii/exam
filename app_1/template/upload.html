@@ -1,0 +1,57 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MonkeyTest</title>
+</head>
+
+<body>
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Monkey 测试</h1>
+        请输入测试执行人：<input type="text" name="peoples">
+        请输入测试版本：<input type="text" name="versions"><br>
+        请上传monkey日志文件<input type="file" name="files"><br>
+        <input type="submit" value="上传">
+        <br>
+        <b><small>测试执行结果：</small></b>
+        <hr>
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>标题</td>
+                <td>答案A</td>
+                <td>答案B</td>
+                <td>答案C</td>
+                <td>答案D</td>
+                <td>正确答案</td>
+                <td>解析</td>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in data %}
+            <tr>
+                <td>{{ result.id}}</td>
+                <td>{{ result.title }}</td>
+                <td>{{ result.a_key }}</td>
+                <td>{{ result.b_key}}</td>
+                <td>{{ result.c_key }}</td>
+                <td>{{ result.d_key }}</td>
+                <td>{{ result.answer }}</td>
+                <td>{{ result.resolve }}</td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+</body>
+
+</html> -->
+
+ss

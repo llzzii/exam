@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>试题</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1754034_zm5tadrfja9.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <!-- 引入组件库 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        .v-expansion-panel:before {
+            box-shadow: none;
+        }
+
+        .theme--light.v-expansion-panels .v-expansion-panel {
+            background-color: transparent;
+        }
+
+        .padding10 {
+            padding: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--vue 绑定和Django的jinja2模板系统使用的标签是一样的，为了区分我们需要用verbatim将vue的标签包围起来-->
+    {% verbatim myblock %}
+    <div id="app">
+        <v-app>
+            <template>
+                <div>
+                    <v-app-bar color="#00ade3" dense dark absolute>
+                        <v-app-bar-nav-icon> <i style="font-size: 20px;" class="icon iconfont iconzhihuitiku"></i>
+                        </v-app-bar-nav-icon>
+                        <v-toolbar-title>Exam</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon>
+                            <a href="/temp/upload" style="text-decoration: none;">
+                                <i style="color: #fff;font-size: 18px;" class=" icon iconfont iconshangchuan"></i>
+                            </a>
+                        </v-btn>
+                        <v-menu left bottom>
+                            <template v-slot:activator="{ on }">
+                                <v-btn icon v-on="on">
+                                    <i style="color: #fff;font-size: 18px;" class="icon iconfont iconchakan"></i>
+                                </v-btn>
+                            </template>
+
+                            <v-list>
+                                <v-list-item>
+                                    <v-list-item-title> <a href="/temp/exam" style="text-decoration: none;">
+                                            查看全部
+                                        </a></v-list-item-title>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title> <a href="/temp/examPage" style="text-decoration: none;">
+                                            分页查看
+                                        </a></v-list-item-title>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-list-item-title> <a href="/temp/examAjax" style="text-decoration: none;">
+                                            Ajax查看
+                                        </a></v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                    </v-app-bar>
+                    <v-sheet id="scrolling-techniques-7" class="overflow-y-auto" max-height="600">
+                        <v-container>
+                            <v-list>
+                                <v-list-item-group color="primary">
+                                    <v-list-item v-for="(item, i) in result" :key="i">
+                                        <v-list-item-content>
+                                            <v-list-item three-line>
+                                                {{ i }}. {{item.fields.title}}
+                                            </v-list-item>
+                                            <v-list-item-subtitle>
+                                                <v-radio-group>
+                                                    <v-radio :label="'A.'+ item.fields.a_key"></v-radio>
+                                                    <v-radio :label="'B.'+ item.fields.b_key"></v-radio>
+                                                    <v-radio :label="'C. '+item.fields.c_key"></v-radio>
+                                                    <v-radio :label="'D. '+item.fields.d_key"></v-radio>
+                                                </v-radio-group>
+                                            </v-list-item-subtitle>
+                                            <v-row justify="center">
+                                                <v-expansion-panels>
+                                                    <v-expansion-panel>
+                                                        <v-expansion-panel-header>答案及解析</v-expansion-panel-header>
+                                                        <v-expansion-panel-content>
+                                                            <h5>解析</h5>
+                                                            <p class="padding10"> {{ item.fields.answer}}</p>
+                                                            <h5>答案</h5>
+                                                            <p class="padding10"> {{ item.fields.resolve}}</p>
+                                                        </v-expansion-panel-content>
+                                                    </v-expansion-panel>
+                                                </v-expansion-panels>
+                                            </v-row>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </v-list-item-group>
+                            </v-list>
+                        </v-container>
+                    </v-sheet>
+
+
+                </div>
+            </template>
+        </v-app>
+    </div>
+    {% endverbatim myblock %}
+
+
+
+
+
+    <script type="text/javascript">
+
+    </script>
+    <script>
+        var vs = new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data() {
+                return {
+                    result: []
+                }
+            },
+            mounted() {
+                axios
+                    .get('/temp/examData/')
+                    .then(response => {
+                        this.result = response.data
+                        console.log(this.result);
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            }
+        })
+    </script>
+
+</body>
+
+</html>
