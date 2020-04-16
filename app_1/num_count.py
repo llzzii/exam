@@ -17,7 +17,7 @@ def uploadFile(request):
         contains = _open_andreadfile(request)
     typeName = request.POST["type"]
     if(typeName == ''):
-        typeName = request.FILES.get("files", None).name
+        typeName = request.FILES.get("files", None).name.split(".txt")[0]
     ExamList = []
     if contains:
         # Exam.objects.create(number=contains['number'], title=contains['title'],
@@ -46,8 +46,12 @@ def uploadFile(request):
                 c_keys = re.findall("C[\\．\\.](.+?)D[\\．\\.]", contain["keys"])[0].strip()+"-##-" + \
                     re.findall("C[\\．\\.](.+?)D[\\．\\.]",
                                contain["keys"])[1].strip()
-                d_keys = re.findall("D[\\．\\.](.+?)A[\\．\\.]", contain["keys"])[
-                    0].strip()+"-##-" + contain["keys"].split('D.')[2].strip()
+                if len(re.compile('D．').findall(contain["keys"])) > 1:
+                    d_keys = re.findall("D[\\．\\.](.+?)A[\\．\\.]", contain["keys"])[
+                        0].strip()+"-##-" + contain["keys"].split('D．')[2].strip()
+                if len(re.compile('D\\.').findall(contain["keys"])) > 1:
+                    d_keys = re.findall("D[\\．\\.](.+?)A[\\．\\.]", contain["keys"])[
+                        0].strip()+"-##-" + contain["keys"].split('D.')[2].strip()
             ExamList.append(Exam(number=contain["number"].strip(), title=contain["title"].strip(), type=typeName,
                                  answer=contain["answer"].strip(), resolve=contain["resolve"].strip(), a_key=a_keys, b_key=b_keys, c_key=c_keys, d_key=d_keys, keys=contain["keys"].strip()))
         Exam.objects.bulk_create(ExamList)
