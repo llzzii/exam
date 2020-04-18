@@ -87,6 +87,22 @@ $ python manage.py migrate app_1   # 创建表结构
     ...
     {% endverbatim myblock %}
 
+10、 pip freeze > requirements.txt 生成 requirements.txt 文件 内含依赖包
+
+11、Invalid HTTP_HOST header: '192.168.56.100:9007'. You may need to add '192.168.56.100' to ALLOWED_HOSTS
+解决：在我们创建的项目里修改 setting.py 文件
+
+ALLOWED_HOSTS = ['*'] ＃在这里请求的 host 添加了\*
+
+12、docker 部署
+
+```
+docker build -t pythondemo:v0.7 .
+
+docker run -it  -p 9006:8000 -d   pythondemo:v0.7
+
+```
+
 ```
 # 更新数据库
 python manage.py makemigrations

@@ -25,7 +25,7 @@ SECRET_KEY = 'n4ae28okc7y61cz^3hb0w*99!(8-%zfjg8944njru42uhlofx='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -78,7 +78,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'test-bank',  # 数据库名称，
-        'HOST': '127.0.0.1',  # 主机地址
+        'HOST': '192.168.56.100',  # 主机地址
         'USER': 'root',  # 数据库用户
         'PASSWORD': '123456',  # 密码
         'PORT': 3306  # mysql的端口默认3306
