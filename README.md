@@ -94,6 +94,8 @@ $ python manage.py migrate app_1   # 创建表结构
 
 ALLOWED_HOSTS = ['*'] ＃在这里请求的 host 添加了\*
 
+ALLOWED_HOSTS 是为了限定请求中的 host 值，以防止黑客构造包来发送请求。只有在列表中的 host 才能访问
+
 12、docker 部署
 
 ```
